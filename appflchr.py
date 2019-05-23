@@ -94,4 +94,4 @@ def lookup(driver, query):
 
 if __name__ == '__main__':
     app.run()
-    time.sleep(5)  # Let the user actually see something!
+ 
