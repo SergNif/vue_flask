@@ -1,1 +1,1 @@
-web: gunicorn appfl1:app
+web: gunicorn appfll:app
