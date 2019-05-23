@@ -7,7 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import ElementNotVisibleException
 
 # from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -45,7 +45,7 @@ def init_driver():
     opts = Options()
     opts.set_headless()
     assert opts.headless  # без графического интерфейса.
-    driver = webdriver.Firefox(options=opts)
+    driver = webdriver.Chrome(options=opts)
     driver.wait = WebDriverWait(driver, 5)
     return driver
 
