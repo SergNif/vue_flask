@@ -66,7 +66,7 @@ def init_driver():
     #chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--window-size=1200x600')
+    #chrome_options.add_argument('--window-size=1200x600')
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
     #    options = webdriver.FirefoxOptions()
