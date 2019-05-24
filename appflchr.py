@@ -9,7 +9,7 @@
 # search_box.submit()
 # time.sleep(5)  # Let the user actually see something!
 # driver.quit()
-
+import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -52,18 +52,31 @@ def ping_pong():
 
 
 def init_driver():
+
+    CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
+
+    chrome_bin = os.environ.get('GOOGLE_CHROME_BIN', "/usr/bin/google-chrome-stable")
+    chrome_options = Options()
+    #jsonify(chrome_bin)
+    #    chrome_options = Options()
+    #    chrome_options.add_argument("--headless")
+    #    chrome_options.add_argument("--no-sandbox")
+    #    chrome_options.add_argument("--disable-setuid-sandbox")
+    chrome_options.binary_location = chrome_bin
+    #chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--window-size=1200x600')
+    driver = webdriver.Chrome(
+        executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
     #    options = webdriver.FirefoxOptions()
     #    options.add_argument('headless')
     #opts = Options()
     #opts.set_headless()
     #assert opts.headless  # без графического интерфейса.
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-setuid-sandbox")
     #    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
     #driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=opts)
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    #    driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.wait = WebDriverWait(driver, 5)
     return driver
 
@@ -94,4 +107,3 @@ def lookup(driver, query):
 
 if __name__ == '__main__':
     app.run()
- 
