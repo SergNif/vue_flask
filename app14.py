@@ -28,8 +28,8 @@ def ping_png():
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
-    driver.get('https://automatetheboringstuff.com')
-    html = browser.page_source
+    driver.get('https://ya.ru')
+    html = driver.page_source
     return render_template('index.html', name=html)
 
 
