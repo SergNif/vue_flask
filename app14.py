@@ -14,8 +14,8 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 # enable CORS
 CORS(app)
-CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
-GOOGLE_CHROME_BIN =  "/usr/bin/google-chrome-stable"
+#CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
+#GOOGLE_CHROME_BIN =  "/usr/bin/google-chrome-stable"
 
 
 @app.route('/', methods=['GET', 'POST'])
