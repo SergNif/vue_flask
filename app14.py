@@ -14,8 +14,8 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 # enable CORS
 CORS(app)
-#CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
-#GOOGLE_CHROME_BIN =  "/usr/bin/google-chrome-stable"
+CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
+GOOGLE_CHROME_BIN =  "/usr/bin/google-chrome-stable"
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -25,13 +25,16 @@ def ping_png():
     chrome_options.binary_location = GOOGLE_CHROME_BIN
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
     driver.get('https://ya.ru')
     html = driver.page_source
+    print(html)
     return render_template('index.html', name=html)
 
 
 if __name__ == '__main__':
     app.run()
+    driver.quit()
