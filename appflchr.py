@@ -53,10 +53,8 @@ def ping_pong():
 
 def init_driver():
 
-	CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-	GOOGLE_CHROME_BIN =  "/app/.apt/usr/bin/google-chrome-stable"
-
-    #chrome_bin = os.environ.get('GOOGLE_CHROME_BIN', "/usr/bin/google-chrome-stable")
+    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
     chrome_options = Options()
     #jsonify(chrome_bin)
     #    chrome_options = Options()
