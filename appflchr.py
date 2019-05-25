@@ -53,19 +53,20 @@ def ping_pong():
 
 def init_driver():
 
-    CHROMEDRIVER_PATH = r'/usr/local/bin/chromedriver'
+	CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+	GOOGLE_CHROME_BIN =  "/app/.apt/usr/bin/google-chrome-stable"
 
-    chrome_bin = os.environ.get('GOOGLE_CHROME_BIN', "/usr/bin/google-chrome-stable")
+    #chrome_bin = os.environ.get('GOOGLE_CHROME_BIN', "/usr/bin/google-chrome-stable")
     chrome_options = Options()
     #jsonify(chrome_bin)
     #    chrome_options = Options()
     #    chrome_options.add_argument("--headless")
     #    chrome_options.add_argument("--no-sandbox")
     #    chrome_options.add_argument("--disable-setuid-sandbox")
-    chrome_options.binary_location = chrome_bin
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
     #chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument('--headless')
+    #chrome_options.add_argument("--no-sandbox")
+    #chrome_options.add_argument('--headless')
     #chrome_options.add_argument('--window-size=1200x600')
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
