@@ -17,6 +17,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import ElementNotVisibleException
+from selenium.webdriver.common.by import By
 
 # from selenium.webdriver import Firefox
 from selenium.webdriver.chrome.options import Options
@@ -53,40 +54,45 @@ def ping_pong():
 
 def init_driver():
 
-    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
+    #    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    #    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
+    CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
+    GOOGLE_CHROME_BIN = "/usr/bin/google-chrome-stable"
     chrome_options = Options()
-    #jsonify(chrome_bin)
+    # jsonify(chrome_bin)
     #    chrome_options = Options()
     #    chrome_options.add_argument("--headless")
     #    chrome_options.add_argument("--no-sandbox")
     #    chrome_options.add_argument("--disable-setuid-sandbox")
     chrome_options.binary_location = GOOGLE_CHROME_BIN
-    #chrome_options.add_argument("--disable-gpu")
-    #chrome_options.add_argument("--no-sandbox")
-    #chrome_options.add_argument('--headless')
-    #chrome_options.add_argument('--window-size=1200x600')
+    # chrome_options.add_argument("--disable-gpu")
+    # chrome_options.add_argument("--no-sandbox")
+    # chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--window-size=1200x600')
     driver = webdriver.Chrome(
         executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
     #    options = webdriver.FirefoxOptions()
     #    options.add_argument('headless')
     #opts = Options()
-    #opts.set_headless()
-    #assert opts.headless  # без графического интерфейса.
+    # opts.set_headless()
+    # assert opts.headless  # без графического интерфейса.
     #    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
     #driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=opts)
     #    driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.wait = WebDriverWait(driver, 5)
+    driver.wait = WebDriverWait(driver, 2)
     return driver
 
 
 def lookup(driver, query):
     # driver.get("http://www.ya.ru")
     driver.get('http://www.google.com/xhtml')
-    time.sleep(5)  # Let the user actually see something!
+    time.sleep(1)  # Let the user actually see something!
     search_box = driver.find_element_by_name('q')
-    search_box.send_keys('oruel')
+    search_box.send_keys(query)
     search_box.submit()
+    lst = []
+    with open('templates/includes/ht.html', 'w') as outfile:
+        outfile.write('<ul>')
     try:
         # box = driver.wait.until(
         #    EC.presence_of_element_located((By.NAME, "text")))
@@ -97,9 +103,26 @@ def lookup(driver, query):
         # box.send_keys(u'\ue007')
         box = driver.wait.until(
             EC.presence_of_element_located((By.CLASS_NAME, "g")))
-        results = driver.find_elements_by_class_name("g")
+        page_html = driver.page_source
+        with open('templates/includes/ht_source.html', 'w') as soutfile:
+            soutfile.write(page_html)
+
+        results = driver.find_elements_by_css_selector("span.st")
+
+        #       results = driver.find_elements_by_class_name("st")
+        #results = driver.find_elements(by=By.CSS_SELECTOR, value='#rso span.st')
+        with open('templates/includes/ht.html', 'a') as outfile:
+
+            for result in results:
+                result = result.get_attribute('innerHTML').strip()
+                result = '<li>' + result + '</li>'
+                print(result)
+                outfile.write(result)
+                lst.append(result)
         driver.quit()
-        return results
+        with open('templates/includes/ht.html', 'a') as outfile:
+            outfile.write("</ul>")
+        return lst
     except TimeoutException:  # except TimeoutException:
         print("Box or Button not found in google.com")
 
