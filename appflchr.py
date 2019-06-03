@@ -54,10 +54,10 @@ def ping_pong():
 
 def init_driver():
 
-    #    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-    #    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
-    CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
-    GOOGLE_CHROME_BIN = "/usr/bin/google-chrome-stable"
+    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
+    #CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
+    #GOOGLE_CHROME_BIN = "/usr/bin/google-chrome-stable"
     chrome_options = Options()
     # jsonify(chrome_bin)
     #    chrome_options = Options()
@@ -110,7 +110,7 @@ def lookup(driver, query):
         results = driver.find_elements_by_css_selector("span.st")
 
         #       results = driver.find_elements_by_class_name("st")
-        #results = driver.find_elements(by=By.CSS_SELECTOR, value='#rso span.st')
+        # results = driver.find_elements(by=By.CSS_SELECTOR, value='#rso span.st')
         with open('templates/includes/ht.html', 'a') as outfile:
 
             for result in results:
