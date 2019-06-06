@@ -54,10 +54,10 @@ def ping_pong():
 
 def init_driver():
 
-    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
-    #CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
-    #GOOGLE_CHROME_BIN = "/usr/bin/google-chrome-stable"
+    #CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    #GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome-stable"
+    CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
+    GOOGLE_CHROME_BIN = "/usr/bin/google-chrome-stable"
     chrome_options = Options()
     # jsonify(chrome_bin)
     #    chrome_options = Options()
@@ -105,6 +105,9 @@ def lookup(driver, query):
             EC.presence_of_element_located((By.CLASS_NAME, "g")))
         page_html = driver.page_source
         with open('templates/includes/ht_source.html', 'w') as soutfile:
+
+            i = page_html.find('</body></html>')
+            page_html = page_html[:i] + '<script type="text/javascript">window.onclick = function() {alert("test");}</script><script  type="text/javascript">     window.onclick = function (e) {      var el = e ? e.target : window.event.srcElement;          alert(e.target.parentNode);            el = el.parentNode;          };  </script>' + page_html[i:]
             soutfile.write(page_html)
 
         results = driver.find_elements_by_css_selector("span.st")
